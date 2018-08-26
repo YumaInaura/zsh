@@ -9,7 +9,13 @@ _peco_command_history_up() {
     local peco_print_query=''
   fi
 
-  BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query="$LBUFFER" "$peco_print_query" | tr -d '\n')
+  BUFFER=$(\
+    history 1 | \
+    sort -k1,1nr | \
+    perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' \
+    | peco --query="$LBUFFER" "$peco_print_query" \
+    | tail -n 1
+  )
 
   CURSOR=${#BUFFER}
   zle reset-prompt
@@ -39,7 +45,7 @@ _peco_command_history_bottom() {
       sort -k1,1nr | \
       perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | \
       peco --layout=bottom-up --on-cancel=error "$peco_print_query" | \
-      tr -d '\n'
+      tail -n 1
    )
 
    zle reset-prompt
