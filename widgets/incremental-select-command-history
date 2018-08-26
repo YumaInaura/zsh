@@ -7,11 +7,17 @@ incremental-select-command-history() {
 
    fc -R
 
+   if [ ! -z $(peco --help | grep '\--print-query') ]; then
+     local peco_print_query='--print-query'
+   else
+     local peco_print_query=''
+   fi
+
    BUFFER=$( \
       history 1 | \
       sort -k1,1nr | \
       perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | \
-      peco --layout=bottom-up --on-cancel=error
+      peco --layout=bottom-up --on-cancel=error "$peco_print_query"
    )
 
    zle reset-prompt
