@@ -14,9 +14,6 @@ _ghq_select() {
 
 zle -N ghq-select _ghq_select
 
-# Recipi : Control + G 
-# bindkey '^G' ghq-select
-
 # Recipi : Control + GG
 # bindkey '^G^G' ghq-select
 
@@ -34,7 +31,7 @@ _ghq_open() {
 zle -N ghq-open _ghq_open
 
 # Recipi : Control + GO
-# bindkey '^G^O' ghq-select
+# bindkey '^G^O' ghq-open
 
 #------------------------------------------
 # NOTE
