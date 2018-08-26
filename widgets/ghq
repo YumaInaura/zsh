@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh -eu
+
+_ghq_select() {
+  if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
+  BUFFER="ghq look $(ghq list | peco)"
+  zle accept-line
+}
+
+zle -N ghq-select _ghq_select
+
+# Recipi : Control + G 
+# bindkey '^G' ghq-select
+
