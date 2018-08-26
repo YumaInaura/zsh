@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh -eu
+
+# Usage
+# 
+# $ source this_script
+
+bindkey_commands=$(cat widgets/* | grep '# bindkey' | sed -e 's/^# //g')
+
+echo "$bindkey_commands"
+
+eval "$bindkey_commands"
+
+echo "If you want reset bindkeys then reboot shell or close window and re-open"
+
+unset bindkey_commands
+
