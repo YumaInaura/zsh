@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -eu
+#!/usr/bin/env zsh -eu
 
 # Usuage
 # 
@@ -9,5 +9,9 @@ mkdir -p ~/zle
 rm -rf ~/zle/widgets
 cp -rf widgets ~/zle
 
+cat widgets/* | grep -A 1 '# Recipi'
+
 # for source command
 exec $SHELL
+
+
