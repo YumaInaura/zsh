@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh -eu
 
-incremental-select-command-history-bottom() {
+_peco_command_history_bottom() {
    if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
 
    local original_buffer="$BUFFER"
@@ -31,7 +31,7 @@ incremental-select-command-history-bottom() {
    CURSOR=${#BUFFER}
 }
 
-zle -N incremental-select-command-history
+zle -N peco-command-history-bottom _peco_command_history_bottom
 
 # Recipi
 # bindkey '^[[A' incremental-select-command-history
