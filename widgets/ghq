@@ -3,17 +3,22 @@
 _ghq_select() {
   if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
 
-  # ghq look can not return to previous directory with `$ cd -`
-  # Mac OS High Sierra
-  # zsh 5.5.1 (x86_64-apple-darwin17.5.0)
-  # BUFFER="ghq look $(ghq list | peco)"
-  BUFFER="cd $(ghq root)/$(ghq list | peco)"
+  local ghq_selected=$(ghq list | peco --query="$BUFFER")
 
-  zle accept-line
+  if [ ! -z "$ghq_selected" ]; then
+    BUFFER="cd "$(ghq root)"/$ghq_selected"
+    zle accept-line
+  fi
 }
 
 zle -N ghq-select _ghq_select
 
 # Recipi : Control + G 
 # bindkey '^G' ghq-select
+
+# NOTE
+# ghq look can not return to previous directory with `$ cd -`
+# Mac OS High Sierra
+# zsh 5.5.1 (x86_64-apple-darwin17.5.0)
+# BUFFER="ghq look $(ghq list | peco)"
 
