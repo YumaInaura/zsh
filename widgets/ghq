@@ -20,10 +20,10 @@ zle -N ghq-select _ghq_select
 _ghq_open() {
   if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
 
-  local ghq_selected=$(ghq list | peco --query="$BUFFER")
+  local remote_repository_web_url=$(ghq list | sed -e 's/^/https:\/\//g' | peco --query="$BUFFER")
 
-  if [ ! -z "$ghq_selected" ]; then
-    BUFFER="open https://$ghq_selected"
+  if [ ! -z "$remote_repository_web_url" ]; then
+    BUFFER="open $remote_repository_web_url"
     zle accept-line
   fi
 }
