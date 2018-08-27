@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh -eu
+
+_eval_and_pbcopy() {
+  if [ ! $(which pbcopy) ]; then echo "You need pbcopy"; fi
+
+  echo -n "$BUFFER" | pbcopy
+  echo -n $(eval "$BUFFER") | pbcopy
+  BUFFER=""
+  zle reset-prompt
+  zle accept-line
+  echo ok
+  # BUFFER="$BUFFER | pbcopy"
+  # zle accept-line
+  # zle reset-prompt
+  # pbpaste
+}
+
+zle -N eval-and-pbcopy _eval_and_pbcopy
+
+# develop
+# source ./widgets/clipboard && bindkey E eval-and-pbcopy
+
