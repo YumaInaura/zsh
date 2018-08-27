@@ -4,11 +4,18 @@ function setup() {
   source widgets/command-exchange
 }
 
-command="SOME_ENV=some vim /path/to/file"
-
-@test "Replace $command" {
+@test "Replace vim command" {
+  command="SOME_ENV=some vim /path/to/file"
   got=$(_remove_command "$command")
   expected="SOME_ENV=some /path/to/file"
+
+  [ "$got" = "$expected"  ]
+}
+
+@test "Replace cat command" {
+  command="cat ./file.sh"
+  got=$(_remove_command "$command")
+  expected=" ./file.sh"
 
   [ "$got" = "$expected"  ]
 }
