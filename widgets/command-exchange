@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh -eu
+
+_command_exchange () {
+  BUFFER=echo "$BUFFER" | sed 's/a/b/'
+}
+
+zle -N command-exchange _command_exchange
+
+# Recipi
+# bindkey "^W^E" command-exchange
