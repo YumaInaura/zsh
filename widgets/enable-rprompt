@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh -eu
+
+enable-rprompt() {
+  if [ ! -z "$OLDRPROMPT" ]; then echo '$OLDRPROMPT is empty'; fi
+  local buffer="$BUFFER"
+  export RPROMPT="$OLDRPROMPT"
+  unset OLDRPROMPT
+  zle kill-whole-line
+  zle accept-line
+  print -z "$buffer"
+}
+
+zle -N enable-rprompt
+
+# Development
+# source widgets/disable-rprompt && bindkey ^T enable-rprompt
+

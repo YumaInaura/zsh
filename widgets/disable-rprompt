@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh -eu
+
+disable-rprompt() {
+  local buffer="$BUFFER"
+  export OLDRPROMPT="$RPROMPT"
+  unset RPROMPT
+  zle kill-whole-line
+  zle accept-line
+  print -z "$buffer"
+}
+
+zle -N disable-rprompt
+
+# Development
+# source widgets/disable-rprompt && bindkey ^T disable-rprompt
+
