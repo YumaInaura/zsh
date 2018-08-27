@@ -61,6 +61,5 @@ _peco_command_history_bottom() {
 zle -N peco-command-history-bottom _peco_command_history_bottom
 
 # Recipi
-# bindkey '^[[A' peco-command-history-bottom
-
+# bindkey '^E' peco-command-history-bottom
 

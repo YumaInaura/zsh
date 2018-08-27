@@ -11,7 +11,3 @@ cp -rf widgets ~/zle
 
 cat widgets/* | grep -A 1 '# Recipi'
 
-# for source command
-exec $SHELL
-
-

@@ -1,4 +1,0 @@
-#!/usr/bin/env zsh -eu
-
-source ./install_widgets.sh
-source ./bindkey_recommended_recipi
