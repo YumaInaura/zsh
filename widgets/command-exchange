@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh -eu
+
+_remove_command() {
+  echo "$1" | perl -pe "s/(^|\s+)([a-z][a-z0-9]+\s+)/ /"
+}
+
+_command_exchange () {
+  BUFFER=$(echo "$BUFFER" | perl -pe "s/(^|\s+)([a-z][a-z0-9]+\s+)/ /")
+  CURSOR=0
+}
+
+_zel_command_exchange () {
+  zle -N command-exchange _command_exchange
+}
+
+# Recipi
+# bindkey "^W^E" command-exchange
+
