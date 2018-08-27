@@ -7,3 +7,4 @@ echo "$bindkeys"
 echo "$bindkeys" > ~/zle/bindkey
 
 exec $SHELL
+
