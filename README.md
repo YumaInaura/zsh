@@ -4,7 +4,7 @@
 ### command
 
 ```
-source widgets/command-exchange
+source widgets/some_widgets
 ```
 
 ```
@@ -14,10 +14,10 @@ $ command-exchange
 ### bindkey
 
 ```
-source widgets/command-exchange
+source widgets/some_widgets
 ```
 
 ```
-bindkey '^X' command-exchange
-# push Ctrl+X
+bindkey '^R' some-widget
+# push Ctrl+R
 ```
