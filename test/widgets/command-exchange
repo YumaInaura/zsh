@@ -1,0 +1,15 @@
+#!/usr/bin/env bats
+
+function setup() {
+  source widgets/command-exchange
+}
+
+command="SOME_ENV=some vim /path/to/file"
+
+@test "Replace $command" {
+  got=$(_remove_command "$command")
+  expected="SOME_ENV=some /path/to/file"
+
+  [ "$got" = "$expected"  ]
+}
+
