@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh -eu
+
+accept-line-and-restore-buffer() {
+  local buffer="$BUFFER"
+  zle kill-whole-line
+  zle accept-line
+  print -z "$buffer"
+}
+
+zle -N accept-line-and-restore-buffer
+
+bindkey ^T^E accept-line-and-restore-buffer
+
