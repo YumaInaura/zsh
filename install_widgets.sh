@@ -15,8 +15,8 @@ cat <<"MESSAGE"
 =============================
 ~/.zshrc needs below line
 =============================
-for file in $(find ~/zle/widgets -type f); do source "$file"; done'
-echo 'source ~/zle/bindkey
+for file in $(find ~/zle/widgets -type f); do source "$file"; done
+source ~/zle/bindkey
 =============================
 MESSAGE
 
