@@ -1,5 +1,14 @@
 #!/usr/bin/env zsh -eu
 
+_peco_command_history_resource() {
+
+cat <<'EOM'
+  history 0 |
+  sort -k1,1nr |
+  perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }'
+EOM
+}
+
 _peco_command_history_up() {
   fc -R
 
@@ -10,11 +19,9 @@ _peco_command_history_up() {
   fi
 
   BUFFER=$(\
-    history 1 | \
-    sort -k1,1nr | \
-    perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' \
-    | peco --query="$LBUFFER" "$peco_print_query" \
-    | tail -n 1
+    eval $(_peco_command_history_resource) | \
+    peco --query="$LBUFFER" "$peco_print_query" | \
+    tail -n 1
   )
 
   CURSOR=${#BUFFER}
@@ -41,9 +48,7 @@ _peco_command_history_bottom() {
    fi
 
    BUFFER=$( \
-      history 1 | \
-      sort -k1,1nr | \
-      perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | \
+      eval $(_peco_command_history_resource) | \
       peco --layout=bottom-up --on-cancel=error "$peco_print_query" | \
       tail -n 1
    )
