@@ -30,13 +30,11 @@ _peco_command_history_up() {
 
 zle -N peco-command-history-up _peco_command_history_up
 
-# Recipi
-# bindkey '^R' peco-command-history-up
-
-_peco_command_history_bottom() {
+_peco_command_history() {
    if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
 
-   local original_buffer="$BUFFER"
+   local original_buffer="$1"
+   local query="$2"
 
    # Reload command history
    fc -R
@@ -49,22 +47,42 @@ _peco_command_history_bottom() {
 
    BUFFER=$( \
       eval $(_peco_command_history_resource) | \
-      peco --layout=bottom-up --on-cancel=error "$peco_print_query" | \
+      peco --layout=bottom-up --query="$query" --on-cancel=error "$peco_print_query" | \
       tail -n 1
    )
 
-   zle reset-prompt
-
+   # FIXME: register to BUFFER peco query when canceled peco
    # Keep original input when escape from select
    if [ -z "$BUFFER" ]; then
      BUFFER="$original_buffer"
    fi
 
+   echo "$BUFFER"
+
+   zle reset-prompt
+
    CURSOR=${#BUFFER}
+}
+
+
+
+_peco_command_history_bottom() {
+  _peco_command_history "$BUFFER" ""
 }
 
 zle -N peco-command-history-bottom _peco_command_history_bottom
 
 # Recipi
 # bindkey '^B' peco-command-history-bottom
+
+
+_peco_command_history_bottom_remember() {
+  _peco_command_history "$BUFFER" "$BUFFER"
+}
+
+zle -N peco-command-history-bottom-remember _peco_command_history_bottom_remember
+
+# Recipi
+# bindkey '^R' peco-command-history-bottom-remember
+
 
